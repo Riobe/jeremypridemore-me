@@ -4,7 +4,7 @@ var MongoClient = require('mongodb').MongoClient
 
 var testCollection = {};
 
-MongoClient.connect('mongodb://heroku_app26822700:cv3o9srdfka5049ibi4o9ph8n4@ds059898.mongolab.com:59898/heroku_app26822700', {}, function(err, db) {
+MongoClient.connect('mongodb://riobe:jpridemore-Mongo@ds059898.mongolab.com:59898/heroku_app26822700', {}, function(err, db) {
     if (err) throw err;
 
     testCollection = db.collection('test');

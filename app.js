@@ -10,6 +10,7 @@ var users = require('./routes/users');
 
 var app = express();
 // mongodb://riobe:jpridemore-Mongo@ds059898.mongolab.com:59898/heroku_app26822700
+// mongo ds059898.mongolab.com:59898/heroku_app26822700 -u riobe -p jpridemore-Mongo
 // view engine setup
 app.set('views', path.join(__dirname, 'views'));
 app.set('view engine', 'jade');
