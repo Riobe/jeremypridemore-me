@@ -25,12 +25,6 @@ mongodb.MongoClient.connect(process.env.MONGOLAB_URI || 'mongodb://localhost:270
     database.users = db.collection('users');
 });
 
-app.use(function(req, res, next) {
-    req.db = database;
-
-    next();
-})
-
 var routes = require('./routes/index');
 var users = require('./routes/users');
 
@@ -42,8 +36,27 @@ app.use(favicon());
 app.use(logger());
 app.use(bodyParser.json());
 app.use(bodyParser.urlencoded());
-app.use(cookieParser());
+app.use(cookieParser('spoaifnsdopfinasoin Secret COOKIE Phrase!!! 2890347nasS*DFJ)(*YWSHDF'));
 app.use(express.static(path.join(__dirname, 'public')));
+
+
+// Make the db available to the routes.
+app.use(function(req, res, next) {
+    req.db = database;
+
+    next();
+})
+
+// Make cookie values avaiable to the routes.
+app.use(function(req, res, next) {
+    if (!req.signedCookies.name) {
+        res.cookie('name', 'win', {signed: true});
+    } else {
+        req.cookieName = req.signedCookies.name;
+    }
+
+    next();
+});
 
 app.use('/', routes);
 app.use('/users', users);

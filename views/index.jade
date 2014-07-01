@@ -5,5 +5,9 @@ block content
     p Welcome to #{title}
     p You are in the #{env} environment.
     p You came from the #{domain} domain.
+    if locals.cookieName
+        p Your cookie name is #{cookieName}.
+    else
+        p You have no cookie name. Try refreshing.
     p
         a(href="/users") Users
