@@ -9,7 +9,7 @@ var app = express();
 
 app.set('mongodb-connection-string',
         app.get('env') === 'production'
-            ? 'mongodb://riobe:jpridemore-Mongo@ds059898.mongolab.com:59898/heroku_app26822700'
+            ? 'mongodb://riobe:jpridemore-Mongo@ds059898.mongolab.com:59898/test'
             : 'mongodb://localhost/test');
 
 var routes = require('./routes/index');
