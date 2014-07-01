@@ -8,6 +8,14 @@ var mongodb = require('mongodb');
 
 var app = express();
 
+app.use(function(req, res, next) {
+    if (req.get('host') === 'jpridemore-test-node.herokuapp.com') {
+        res.redirect(301, 'http://www.tiltedpeak.com');
+    } else {
+        next();
+    }
+});
+
 // mongodb://riobe:jpridemore-Mongo@ds059898.mongolab.com:59898/heroku_app26822700
 // mongo ds059898.mongolab.com:59898/heroku_app26822700 -u riobe -p jpridemore-Mongo
 var database = {};
