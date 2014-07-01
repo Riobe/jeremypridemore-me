@@ -5,10 +5,16 @@ var logger = require('morgan');
 var cookieParser = require('cookie-parser');
 var bodyParser = require('body-parser');
 
+var app = express();
+
+app.set('mongodb-connection-string',
+        app.get('env') === 'production'
+            ? 'mongodb://riobe:jpridemore-Mongo@ds059898.mongolab.com:59898/heroku_app26822700'
+            : 'mongodb://localhost/test');
+
 var routes = require('./routes/index');
 var users = require('./routes/users');
 
-var app = express();
 // mongodb://riobe:jpridemore-Mongo@ds059898.mongolab.com:59898/heroku_app26822700
 // mongo ds059898.mongolab.com:59898/heroku_app26822700 -u riobe -p jpridemore-Mongo
 // view engine setup

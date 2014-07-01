@@ -1,18 +1,24 @@
 var express = require('express');
 var router = express.Router();
-var MongoClient = require('mongodb').MongoClient
+var mongodb = require('mongodb');
 
+var app = express();
+var mongoDbConnectionString = app.get('mongodb')
+
+var server = new mongodb.Server('localhost', 27017, {auto_reconnect: true});
 var testCollection = {};
+db = new mongodb.Db('test', server);
 
-MongoClient.connect('mongodb://riobe:jpridemore-Mongo@ds059898.mongolab.com:59898/heroku_app26822700', {}, function(err, db) {
-    if (err) throw err;
-
-    testCollection = db.collection('test');
+db.open(function(err, db) {
+    if(!err) {
+        console.log("Connected to 'test' database");
+        testCollection = db.collection('users');
+    }
 });
 
 /* GET users listing. */
 router.get('/', function(req, res) {
-    testCollection.find().toArray(function(err, docs) {
+    testCollection.find({}, {}, function(err, docs) {
         res.render('users', {users: docs});
     });
 });
@@ -29,9 +35,9 @@ router.post('/', function(req, res) {
             return;
         }
 
-        res.location("/users");
+        res.location("/");
         // And forward to success page
-        res.redirect("/users");
+        res.redirect("/");
     });
 });
 
