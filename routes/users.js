@@ -3,9 +3,9 @@ var router = express.Router();
 var mongodb = require('mongodb');
 
 var app = express();
-var mongoDbConnectionString = app.get('mongodb')
+var mongoDbConnectionString = app.get('mongodb-connection-string')
 
-var server = new mongodb.Server('localhost', 27017, {auto_reconnect: true});
+var server = new mongodb.Server(mongoDbConnectionString, 27017, {auto_reconnect: true});
 var testCollection = {};
 db = new mongodb.Db('test', server);
 
