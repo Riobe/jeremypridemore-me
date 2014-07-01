@@ -4,7 +4,7 @@ var environment = express().get('env');
 
 /* GET home page. */
 router.get('/', function(req, res) {
-  res.render('index', { title: 'Express', env: environment});
+  res.render('index', { title: 'Express', env: environment, domain: req.get('host')});
 });
 
 module.exports = router;
