@@ -30,7 +30,26 @@ app.set('views', path.join(__dirname, 'views'));
 app.set('view engine', 'jade');
 
 app.use(favicon());
-app.use(logger());
+app.use(logger(function(tokens, req, res){
+    var color = 32; // green
+    var status = res.statusCode;
+
+    if (status >= 500) color = 31; // red
+    else if (status >= 400) color = 33; // yellow
+    else if (status >= 300) color = 36; // cyan
+
+    var compile = function(fmt) {
+        fmt = fmt.replace(/"/g, '\\"');
+        var js = ' return "' + fmt.replace(/:([-\w]{2,})(?:\[([^\]]+)\])?/g, function(_, name, arg){
+            return '"\n + (tokens["' + name + '"](req, res, "' + arg + '") || "-") + "';
+        }) + '";'
+        return new Function('tokens, req, res', js);
+    };
+
+    var fn = compile(':remote-addr - [:date] "\x1b[90m:method :url HTTP/:http-version \x1b[' + color + 'm:status \x1b[90m:response-time ms - :res[content-length]\x1b[0m :res[content-length] ":referrer" ":user-agent"');
+
+    return fn(tokens, req, res);
+}));
 app.use(bodyParser.json({limit: '2mb'}));
 app.use(bodyParser.urlencoded({limit: '2mb'}));
 app.use(cookieParser('spoaifnsdopfinasoin Secret COOKIE Phrase!!! 2890347nasS*DFJ)(*YWSHDF'));
