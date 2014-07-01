@@ -8,8 +8,10 @@ router.get('/', function(req, res) {
     });
 });
 
-router.get('/:id', function(req, res) {
-    res.send('respond with a resource');
+router.get('/:name', function(req, res) {
+    req.db.users.findOne({name: req.params.name}, function(err, user) {
+        res.render('users', {users: [user]});
+    });
 });
 
 router.post('/', function(req, res) {

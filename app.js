@@ -25,9 +25,6 @@ mongodb.MongoClient.connect(process.env.MONGOLAB_URI || 'mongodb://localhost:270
     database.users = db.collection('users');
 });
 
-var routes = require('./routes/index');
-var users = require('./routes/users');
-
 // view engine setup
 app.set('views', path.join(__dirname, 'views'));
 app.set('view engine', 'jade');
@@ -58,8 +55,8 @@ app.use(function(req, res, next) {
     next();
 });
 
-app.use('/', routes);
-app.use('/users', users);
+app.use('/', require('./routes/index'));
+app.use('/users', require('./routes/users'));
 
 /// catch 404 and forward to error handler
 app.use(function(req, res, next) {
