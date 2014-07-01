@@ -34,8 +34,8 @@ app.set('view engine', 'jade');
 
 app.use(favicon());
 app.use(logger());
-app.use(bodyParser.json());
-app.use(bodyParser.urlencoded());
+app.use(bodyParser.json({limit: '2mb'}));
+app.use(bodyParser.urlencoded({limit: '2mb'}));
 app.use(cookieParser('spoaifnsdopfinasoin Secret COOKIE Phrase!!! 2890347nasS*DFJ)(*YWSHDF'));
 app.use(express.static(path.join(__dirname, 'public')));
 
