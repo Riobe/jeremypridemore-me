@@ -16,8 +16,8 @@ app.use(function(req, res, next) {
     }
 });
 
-// mongodb://riobe:jpridemore-Mongo@ds059898.mongolab.com:59898/heroku_app26822700
-// mongo ds059898.mongolab.com:59898/heroku_app26822700 -u riobe -p jpridemore-Mongo
+// mongodb://<username>:<password>@ds059898.mongolab.com:59898/heroku_app26822700
+// mongo ds059898.mongolab.com:59898/heroku_app26822700 -u <username> -p <password>
 var database = {};
 mongodb.MongoClient.connect(process.env.MONGOLAB_URI || 'mongodb://localhost:27017/heroku_app26822700', function(err, db) {
     if (err) throw err;
