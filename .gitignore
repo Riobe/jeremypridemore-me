@@ -29,3 +29,12 @@ workspace.xml
 
 # Users Environment Variables
 .lock-wscript
+
+# Bower components. Don't need to be commited since they can be installed with `bower install` 
+public/components
+
+# Node components that can be acquired with `npm install`
+node_modules
+
+# vim swap files don't need to be commited.
+*.swp

@@ -1,0 +1,23 @@
+{
+  "name": "Jeremy Pridemore",
+  "version": "0.0.2",
+  "authors": [
+    "riobe <jeremy.pridemore@gmail.com>"
+  ],
+  "description": "Personal website to show my exploits and madness.",
+  "main": "bin/www",
+  "keywords": [
+    "personal",
+    "web",
+    "resume"
+  ],
+  "license": "MIT",
+  "homepage": "jeremypridemore.me",
+  "ignore": [
+    "**/.*",
+    "node_modules",
+    "bower_components",
+    "test",
+    "tests"
+  ]
+}

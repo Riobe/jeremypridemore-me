@@ -49,13 +49,19 @@ app.use(logger(function(tokens, req, res){
         return new Function('tokens, req, res', js);
     };
 
+    // I'm a stubborn bastard and went and looked at how the dev target was logging with colors so I could make my logger log with colors even when not at a dev setting.
+    // I'm also writing the comment a couple months after I did this and might have messed up my terminology just a smidgen.
     var fn = compile(':remote-addr - [:date] "\x1b[90m:method :url HTTP/:http-version \x1b[' + color + 'm:status \x1b[90m:response-time ms - :res[content-length]\x1b[0m :res[content-length] ":referrer" ":user-agent"');
 
     return fn(tokens, req, res);
 }));
+
+// Parser setup.
 app.use(bodyParser.json({limit: '2mb'}));
 app.use(bodyParser.urlencoded({limit: '2mb'}));
 app.use(cookieParser('spoaifnsdopfinasoin Secret COOKIE Phrase!!! 2890347nasS*DFJ)(*YWSHDF'));
+
+// Path to static files.
 app.use(express.static(path.join(__dirname, 'public')));
 
 
