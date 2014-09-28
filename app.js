@@ -8,14 +8,6 @@ var mongodb = require('mongodb');
 
 var app = express();
 
-app.use(function(req, res, next) {
-    if (req.get('host') === 'jpridemore-test-node.herokuapp.com') {
-        res.redirect(301, 'http://www.tiltedpeak.com');
-    } else {
-        next();
-    }
-});
-
 // mongodb://<username>:<password>@ds059898.mongolab.com:59898/heroku_app26822700
 // mongo ds059898.mongolab.com:59898/heroku_app26822700 -u <username> -p <password>
 var database = {};
@@ -23,6 +15,17 @@ mongodb.MongoClient.connect(process.env.MONGOLAB_URI || 'mongodb://localhost:270
     if (err) throw err;
 
     database.users = db.collection('users');
+});
+
+// End of setup
+
+// Permanent redirect.
+app.use(function(req, res, next) {
+    if (req.get('host') === 'jpridemore-test-node.herokuapp.com') {
+        res.redirect(301, 'http://www.tiltedpeak.com');
+    } else {
+        next();
+    }
 });
 
 // view engine setup
