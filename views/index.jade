@@ -1,8 +1,7 @@
 extends layout
 
 block content
-    h1= title
-    p Welcome to #{title}
+
     p You are in the #{env} environment.
     p You came from the #{domain} domain.
     if locals.cookieName
@@ -10,4 +9,4 @@ block content
     else
         p You have no cookie name. Try refreshing.
     p
-        a(href="/users") Users
+        a(href="/users") MongoDB test: Users
