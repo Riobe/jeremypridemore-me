@@ -1,21 +1,24 @@
 doctype html
-html
+html(np-app="")
     head
         title= title
+
+        script(src='/components/angular/angular.min.js')
+
         link(rel="stylesheet" href='/components/bootstrap/dist/css/bootstrap.min.css')
         link(rel="stylesheet" href='/components/bootstrap/dist/css/bootstrap-theme.min.css')
-        link(rel='stylesheet', href='/stylesheets/style.css')
+        link(rel='stylesheet' href='/stylesheets/style.css')
 
     body
         nav.navbar.navbar-inverse(role="navigation")
-            div.container-fluid
+            div.container
                 div.navbar-header
                     button.navbar-toggle.collapsed(type="button", data-toggle="collapse", data-target="#navbar-collapse")
                         span.sr-only Toggle navigation
                         span.icon-bar
                         span.icon-bar
                         span.icon-bar
-                    a.navbar-brand(href="/") Jeremy Pridemore
+                    a.bright.navbar-brand(href="/") Jeremy Pridemore
 
                 div#navbar-collapse.collapse.navbar-collapse
                     ul.nav.navbar-nav
@@ -24,7 +27,6 @@ html
                             ul.dropdown-menu(role="menu")
                                 li
                                     a(href="/users") Users MongoDB Test
-
 
         block content
         

@@ -1,8 +1,9 @@
 body {
     font: 14px "Lucida Grande", Helvetica, Arial, sans-serif;
-    background: #888888;
+    background: #EEE;
 }
 
-a {
-    color: #00B7FF;
+div.navbar-header a.navbar-brand {
+    color: #FFF;
 }
+
