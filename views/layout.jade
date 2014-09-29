@@ -2,9 +2,9 @@ doctype html
 html
     head
         title= title
-        link(rel='stylesheet', href='/stylesheets/style.css')
         link(rel="stylesheet" href='/components/bootstrap/dist/css/bootstrap.min.css')
         link(rel="stylesheet" href='/components/bootstrap/dist/css/bootstrap-theme.min.css')
+        link(rel='stylesheet', href='/stylesheets/style.css')
 
     body
         nav.navbar.navbar-inverse(role="navigation")
@@ -16,6 +16,14 @@ html
                         span.icon-bar
                         span.icon-bar
                     a.navbar-brand(href="/") Jeremy Pridemore
+
+                div#navbar-collapse.collapse.navbar-collapse
+                    ul.nav.navbar-nav
+                        li.dropdown 
+                            a.dropdown-toggle(href="#", data-toggle="dropdown") Experiments <span class="caret"></span>
+                            ul.dropdown-menu(role="menu")
+                                li
+                                    a(href="/users") Users MongoDB Test
 
 
         block content
