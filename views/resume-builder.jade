@@ -1,0 +1,41 @@
+extends layout
+
+block content
+    
+    div.container
+        h1 Resume Builder
+        p.lead
+            | This experiment is to create a single resume blurb. Insert the information for a job and it will be presented, in what is hopefully a pleasing manner, to you. Some of the details will be present only upon clicking.
+
+        form.container(role='form')
+            div.form-group
+                div.col-sm-8
+                    label(for='company-name') Company Name
+                    input#company-name.form-control(type='text')
+                    p.help-block What was the name of the company that you worked for?
+
+                div.col-sm-4
+                    label(for='company-link') Company Link (Optional) 
+                    input#company-link.form-control(type='url')
+
+            div.form-group.col-sm-12
+                label(for='company-location') Company Location (Optional)
+                input#company-location.form-control(type='text')
+
+            div.form-group.col-sm-6.col-xs-12
+                label(for='start-date') Start Date
+                input#start-date.form-control(type='date')
+
+            div.form-group.col-sm-6.col-xs-12
+                label(for='end-date') End Date
+                input#end-date.form-control(type='date')
+                
+                div.checkbox
+                    label 
+                        input(type='checkbox') 
+                        | Currently working here
+                
+            div.form-group.col-sm-12
+                label(for='description') Description (Optional)
+                // Sounds good... 
+                textarea.form-control(rows=8) 
