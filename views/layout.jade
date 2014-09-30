@@ -12,21 +12,22 @@ html(np-app="")
     body
         nav.navbar.navbar-inverse(role="navigation")
             div.container
-                div.navbar-header
-                    button.navbar-toggle.collapsed(type="button", data-toggle="collapse", data-target="#navbar-collapse")
-                        span.sr-only Toggle navigation
-                        span.icon-bar
-                        span.icon-bar
-                        span.icon-bar
-                    a.bright.navbar-brand(href="/") Jeremy Pridemore
+                div.row
+                    div.navbar-header.col-sm-3.col-xs-12
+                        button.navbar-toggle.collapsed(type="button", data-toggle="collapse", data-target="#navbar-collapse")
+                            span.sr-only Toggle navigation
+                            span.icon-bar
+                            span.icon-bar
+                            span.icon-bar
+                        a.bright.navbar-brand(href="/") Jeremy Pridemore
 
-                div#navbar-collapse.collapse.navbar-collapse
-                    ul.nav.navbar-nav
-                        li.dropdown 
-                            a.dropdown-toggle(href="#", data-toggle="dropdown") Experiments <span class="caret"></span>
-                            ul.dropdown-menu(role="menu")
-                                li
-                                    a(href="/users") Users MongoDB Test
+                    div#navbar-collapse.collapse.navbar-collapse.col-sm-9.col-xs-12
+                        ul.nav.navbar-nav
+                            li.dropdown 
+                                a.dropdown-toggle(href="#", data-toggle="dropdown") Experiments <span class="caret"></span>
+                                ul.dropdown-menu(role="menu")
+                                    li
+                                        a(href="/users") Users MongoDB Test
 
         block content
         
