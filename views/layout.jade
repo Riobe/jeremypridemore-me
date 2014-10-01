@@ -1,37 +1,37 @@
 doctype html
-html(np-app="")
+html(np-app='')
     head
         title Jeremy Pridemore - Functional Madness
 
         meta(name='viewport' content='width=device-width, initital-scale=1.0')
 
-        link(rel="stylesheet" href='/components/bootstrap/dist/css/bootstrap.min.css')
-        link(rel="stylesheet" href='/components/bootstrap/dist/css/bootstrap-theme.min.css')
+        link(rel='stylesheet' href='/components/bootstrap/dist/css/bootstrap.min.css')
+        link(rel='stylesheet' href='/components/bootstrap/dist/css/bootstrap-theme.min.css')
         link(rel='stylesheet' href='/stylesheets/style.css')
 
         block stylesheets
 
     body
-        nav.navbar.navbar-inverse(role="navigation")
+        nav.navbar.navbar-inverse(role='navigation')
             div.container
                 div.row
                     div.navbar-header.col-sm-3.col-xs-12
-                        button.navbar-toggle.collapsed(type="button", data-toggle="collapse", data-target="#navbar-collapse")
+                        button.navbar-toggle.collapsed(type='button', data-toggle='collapse', data-target='#navbar-collapse')
                             span.sr-only Toggle navigation
                             span.icon-bar
                             span.icon-bar
                             span.icon-bar
-                        a.bright.navbar-brand(href="/") Jeremy Pridemore
+                        a.bright.navbar-brand(href='/') Jeremy Pridemore
 
                     div#navbar-collapse.collapse.navbar-collapse.col-sm-9.col-xs-12
                         ul.nav.navbar-nav
                             li.dropdown 
-                                a.dropdown-toggle(href="#", data-toggle="dropdown") Experiments <span class="caret"></span>
-                                ul.dropdown-menu(role="menu")
+                                a.dropdown-toggle(href='#', data-toggle='dropdown') Experiments <span class='caret'></span>
+                                ul.dropdown-menu(role='menu')
                                     li
-                                        a(href="/users") Users MongoDB Test
+                                        a(href='/users') Users MongoDB Test
                                     li
-                                        a(href="/resume-builder") Resume Builder
+                                        a(href='/resume-builder') Resume Builder
 
         block content
         
