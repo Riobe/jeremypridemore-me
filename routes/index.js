@@ -5,7 +5,6 @@ var environment = express().get('env');
 /* GET home page. */
 router.get('/', function(req, res) {
   res.render('index', {
-      title: 'Jeremy Pridemore',
       env: environment,
       domain: req.get('host'),
       cookieName: req.cookieName
