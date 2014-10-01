@@ -1,15 +1,15 @@
 doctype html
 html(np-app="")
     head
-        title= title
+        title Jeremy Pridemore - Functional Madness
 
         meta(name='viewport' content='width=device-width, initital-scale=1.0')
-
-        script(src='/components/angular/angular.min.js')
 
         link(rel="stylesheet" href='/components/bootstrap/dist/css/bootstrap.min.css')
         link(rel="stylesheet" href='/components/bootstrap/dist/css/bootstrap-theme.min.css')
         link(rel='stylesheet' href='/stylesheets/style.css')
+
+        block stylesheets
 
     body
         nav.navbar.navbar-inverse(role="navigation")
@@ -37,3 +37,7 @@ html(np-app="")
         
         script(src='/components/jquery/dist/jquery.min.js')
         script(src='/components/bootstrap/dist/js/bootstrap.min.js')
+        script(src='/components/angular/angular.min.js')
+
+        block scripts
+
