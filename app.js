@@ -22,7 +22,7 @@ mongodb.MongoClient.connect(process.env.MONGOLAB_URI || 'mongodb://localhost:270
 // Permanent redirect.
 app.use(function(req, res, next) {
     if (req.get('host') === 'jpridemore-test-node.herokuapp.com') {
-        res.redirect(301, 'http://www.tiltedpeak.com');
+        res.redirect(301, 'http://www.jeremypridemore.me');
     } else {
         next();
     }
