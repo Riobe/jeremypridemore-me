@@ -1,5 +1,4 @@
 #! /bin/bash
 
-git push heroku master
-git push github master
+git push heroku master && git push github master
 
