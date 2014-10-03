@@ -22,11 +22,20 @@ block content
 
             div.form-group.col-sm-6.col-xs-12
                 label.sr-only(for='start-date') Start Date
-                input#start-date.form-control(type='text' placeholder='Start Date' onmouseover='this.type="date"' onmouseout='if (this != document.activeElement) { this.type = "text"; }' onfocus='this.onmouseover()' onblur='var me = this; setTimeout(function(){me.onmouseout();},50)')
+                input#start-date.form-control(type='text' placeholder='Start Date'
+                        onmouseover='this.type="date"
+                        onmouseout='if (this != document.activeElement) { this.type="text"; }
+                        onfocus='this.onmouseover()
+                        onblur='var me = this; setTimeout(function(){me.onmouseout();},50)')
 
             div.form-group.col-sm-6.col-xs-12
                 label.sr-only(for='end-date') End Date
-                input#end-date.form-control(type='text' placeholder='End Date' onmouseover='this.type="date"' onmouseout='if (this != document.activeElement) { this.type="text"; }' onfocus='this.onmouseover()' onblur='var me = this; setTimeout(function(){me.onmouseout();},50)')
+                input#end-date.form-control(type='text
+                        placeholder='End Date'
+                        onmouseover='this.type="date"
+                        onmouseout='if (this != document.activeElement) { this.type="text"; }
+                        onfocus='this.onmouseover()
+                        onblur='var me = this; setTimeout(function(){me.onmouseout();},50)')
                 
                 div.checkbox
                     label 
