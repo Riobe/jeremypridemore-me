@@ -15,3 +15,38 @@ body {
 a {
   cursor: pointer;
 }
+
+/* None of this works for me, but I'm leaving it in case it does for others. */
+@media print {
+  ::-webkit-input-placeholder { /* WebKit, Blink, Edge */
+    color: transparent;
+    text-shadow: none;
+    opacity:  1;
+  }
+  :-moz-placeholder { /* Mozilla Firefox 4 to 18 */
+    color: transparent;
+    text-shadow: none;
+    opacity:  1;
+  }
+  ::-moz-placeholder { /* Mozilla Firefox 19+ */
+    color: transparent;
+    text-shadow: none;
+    opacity:  1;
+  }
+  :-ms-input-placeholder { /* Internet Explorer 10-11 */
+    color: transparent;
+    text-shadow: none;
+    opacity:  1;
+  }
+  ::-ms-input-placeholder { /* Microsoft Edge */
+    color: transparent;
+    text-shadow: none;
+    opacity:  1;
+  }
+
+  ::placeholder { /* Most modern browsers support this now. */
+    color: transparent;
+    text-shadow: none;
+    opacity:  1;
+  }
+}

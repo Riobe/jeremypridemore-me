@@ -1,6 +1,10 @@
 .exalted-dot-set-5 {
   display: flex;
   position: relative;
+
+  /* Each dot is 20px */
+  /* Each dot has a 3px margin-right */
+  width: calc(23px * 5);
 }
 
 .exalted-dot-set-5 > .exalted-dot:not(:last-child) {
@@ -14,7 +18,7 @@
   width: 20px;
 
   top: -15px;
-  right: -2px;
+  right: -15px;
 
   color: red;
   font-size: 25px;

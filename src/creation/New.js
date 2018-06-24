@@ -82,24 +82,28 @@ export default class New extends Component {
           <form className="col">
             <div className="form-row">
               <div className="col">
-                <input
-                  id="name"
-                  className="form-control"
-                  type="text"
-                  placeholder="Charcter name"
-                  value={this.state.name}
-                  onChange={controlFor(this, 'name')}
-                />
+                <div className="row align-items-end">
+                  <label className="col-auto" htmlFor="name">Character:</label>
+                  <input
+                    id="name"
+                    className="form-control col"
+                    type="text"
+                    value={this.state.name}
+                    onChange={controlFor(this, 'name')}
+                  />
+                </div>
               </div>
-              <div className="col">
-                <input
-                  id="player"
-                  className="form-control"
-                  type="text"
-                  placeholder="Player name"
-                  value={this.state.player}
-                  onChange={controlFor(this, 'player')}
-                />
+              <div className="col mx-3">
+                <div className="row align-items-end">
+                  <label className="col-auto" htmlFor="player">Player:</label>
+                  <input
+                    id="player"
+                    className="form-control col"
+                    type="text"
+                    value={this.state.player}
+                    onChange={controlFor(this, 'player')}
+                  />
+                </div>
               </div>
               <div className="col">
                 <select
@@ -138,13 +142,13 @@ export default class New extends Component {
           </div>
         </div>
 
-        <div id="abilities" className="row mt-5 p-3 shadow-lg">
-          <div className="col-4 shadow p-3">
+        <div id="abilities" className="row my-5 mb-0 shadow-lg">
+          <div className="col-4 shadow p-2">
             <div className="row">
               <h4 className="col">Abilities</h4>
             </div>
             {Object.keys(this.state.abilities).map(ability => (
-              <div className="ability row justify-content-between mb-2" key={ability}>
+              <div className="ability row col justify-content-between mb-2" key={ability}>
                 <div className="ability-header col-auto">{titleCase(ability)}</div>
                 <DotSet5
                   className="ability-value col-auto"

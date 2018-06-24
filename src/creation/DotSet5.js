@@ -9,9 +9,9 @@ export default function DotSet5({ value, onValueChanged, clearable, className, .
   const threshold = clamp(value || 0, 0, 5);
 
   return (
-    <div className={'exalted-dot-set-5' + (className ? ' ' + className : '' )} {...props}>
+    <div className={'exalted-dot-set-5 p-0' + (className ? ' ' + className : '' )} {...props}>
       {clearable && (value > 0) &&
-        <div className="DotSet5-clear" onClick={() => {
+        <div className="DotSet5-clear d-print-none" onClick={() => {
           console.log('clicked clear', value);
           if (!value || !onValueChanged) { return; }
 

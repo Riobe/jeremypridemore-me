@@ -1,6 +1,8 @@
 .exalted-dot {
-  height: 18px;
-  width: 18px;
+  box-sizing: border-box;
+
+  height: 20px;
+  width: 20px;
 
   cursor: pointer;
 
@@ -9,5 +11,7 @@
 }
 
 .exalted-dot.exalted-dot-filled {
+  /* Can I do this in any other browsers? */
+  -webkit-print-color-adjust: exact !important;
   background-color: black;
 }
