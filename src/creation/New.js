@@ -84,8 +84,8 @@ export default class New extends Component {
           </div>
         </div>
 
-        <div className="row justify-content-end">
-          <form>
+        <div className="row mb-2">
+          <form className="col">
             <div className="form-row">
               <div className="col">
                 <input
@@ -107,10 +107,7 @@ export default class New extends Component {
                   onChange={controlFor(this, 'player')}
                 />
               </div>
-            </div>
-            <div className="form-row">
-              <div className="form-group col">
-                <label htmlFor="caste">Caste</label>
+              <div className="col">
                 <select
                   id="caste"
                   className="form-control"
@@ -120,7 +117,7 @@ export default class New extends Component {
                     this.setState({ caste: event.target.value });
                   }}
                 >
-                  <option value="" selected disabled hidden>Choose one...</option>
+                  <option value="" disabled hidden>Caste</option>
                   {Object.values(CASTE).map(caste => (
                     <option key={caste} value={caste}>{caste}</option>
                   ))}
@@ -134,40 +131,44 @@ export default class New extends Component {
           <h3>Attributes</h3>
         </div>
 
-        <div id="attributes" className="row shadow-lg">
-          {Object.keys(this.state.attributes).map(type => (
-            <AttributeRow
-              key={type}
-              name={type}
-              attributeType={this.state.attributes[type]}
-              onValueChanged={({attribute, newValue}) => this.handleAttributeChange(type, attribute, newValue)}
-            />
-          ))}
+        <div id="attributes" className="row p-3 shadow-lg">
+          <div className="col">
+            {Object.keys(this.state.attributes).map(type => (
+              <AttributeRow
+                key={type}
+                name={type}
+                attributeType={this.state.attributes[type]}
+                onValueChanged={({attribute, newValue}) => this.handleAttributeChange(type, attribute, newValue)}
+              />
+            ))}
+          </div>
         </div>
 
-        <div id="abilities" className="row p-3 shadow-lg">
-          {Object.keys(this.state.abilities).map(ability => (
-            <div className="ability w-100 row justify-content-start" key={ability}>
-              <div className="ability-header col-2">{titleCase(ability)}</div>
-              <DotSet5
-                className="ability-value col-auto"
-                value={this.state.abilities[ability]}
-                onValueChanged={value => {
-                  debug(`${ability} set to ${value}`);
-                  const newState = {
-                    abilities: {
-                      ...this.state.abilities,
-                      [ability]: value
-                    }
-                  };
-                  debug('Setting state to:', newState);
+        <div id="abilities" className="row mt-5 p-3 shadow-lg">
+          <div className="col-4 shadow p-3">
+            {Object.keys(this.state.abilities).map(ability => (
+              <div className="ability row justify-content-between mb-2" key={ability}>
+                <div className="ability-header col-auto">{titleCase(ability)}</div>
+                <DotSet5
+                  className="ability-value col-auto"
+                  value={this.state.abilities[ability]}
+                  onValueChanged={value => {
+                    debug(`${ability} set to ${value}`);
+                    const newState = {
+                      abilities: {
+                        ...this.state.abilities,
+                        [ability]: value
+                      }
+                    };
+                    debug('Setting state to:', newState);
 
-                  this.setState(newState);
-                }}
-                clearable={true}
-              />
-            </div>
-          ))}
+                    this.setState(newState);
+                  }}
+                  clearable={true}
+                />
+              </div>
+            ))}
+          </div>
         </div>
 
       </div>

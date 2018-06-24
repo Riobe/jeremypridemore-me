@@ -1,5 +1,6 @@
 .exalted-dot-set-5 {
   display: flex;
+  position: relative;
 }
 
 .exalted-dot-set-5 > .exalted-dot:not(:last-child) {
@@ -7,15 +8,17 @@
 }
 
 .DotSet5-clear {
+  position: absolute;
+
   height: 20px;
   width: 20px;
 
-  margin-top: -10px;
+  top: -15px;
+  right: -2px;
 
   color: red;
   font-size: 25px;
   text-align: center;
-  vertical-align: center;
 
   cursor: pointer;
 }
