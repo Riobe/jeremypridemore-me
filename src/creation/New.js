@@ -76,13 +76,7 @@ export default class New extends Component {
 
   render() {
     return (
-      <div className="container">
-
-        <div className="row">
-          <div className="col text-center">
-            <h1 className="display-1">New Character</h1>
-          </div>
-        </div>
+      <div className="container mt-5">
 
         <div className="row mb-2">
           <form className="col">
@@ -146,6 +140,9 @@ export default class New extends Component {
 
         <div id="abilities" className="row mt-5 p-3 shadow-lg">
           <div className="col-4 shadow p-3">
+            <div className="row">
+              <h4 className="col">Abilities</h4>
+            </div>
             {Object.keys(this.state.abilities).map(ability => (
               <div className="ability row justify-content-between mb-2" key={ability}>
                 <div className="ability-header col-auto">{titleCase(ability)}</div>
