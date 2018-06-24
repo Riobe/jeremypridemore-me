@@ -1,6 +1,7 @@
 import React, { Component } from 'react';
 
-import { titleCase } from '../util';
+import { titleCase, controlFor } from '../util';
+import { CASTE } from '../constants';
 
 import AttributeRow from './AttributeRow';
 import DotSet5 from './DotSet5';
@@ -9,6 +10,9 @@ const debug = require('debug')('jeremypridemore-me:creation:New');
 
 export default class New extends Component {
   state = {
+    name: '',
+    player: '',
+    caste: '',
     attributes: {
       physical: {
         strength: 1,
@@ -78,6 +82,48 @@ export default class New extends Component {
           <div className="col text-center">
             <h1 className="display-1">New Character</h1>
           </div>
+        </div>
+
+        <div className="row">
+          <form>
+            <div className="form-group">
+              <label htmlFor="name">Character</label>
+              <input
+                id="name"
+                className="form-control"
+                type="text"
+                value={this.state.name}
+                onChange={controlFor(this, 'name')}
+              />
+            </div>
+            <div className="form-group">
+              <label htmlFor="player">Player</label>
+              <input
+                id="name"
+                className="form-control"
+                type="text"
+                value={this.state.player}
+                onChange={controlFor(this, 'player')}
+              />
+            </div>
+            <div className="form-group">
+              <label htmlFor="caste">Caste</label>
+              <select
+                id="caste"
+                className="form-control"
+                value={this.state.caste}
+                onChange={event => {
+                  debug(`caste changed to: ${event.target.value}`);
+                  this.setState({ caste: event.target.value });
+                }}
+              >
+                <option value="" selected disabled hidden>Choose one...</option>
+                {Object.values(CASTE).map(caste => (
+                  <option key={caste} value={caste}>{caste}</option>
+                ))}
+              </select>
+            </div>
+          </form>
         </div>
 
         <div className="row">
