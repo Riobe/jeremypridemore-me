@@ -5,7 +5,7 @@ import { titleCase } from '../util';
 import AttributeRow from './AttributeRow';
 import DotSet5 from './DotSet5';
 
-const debug = require('debug')('jeremypridemore-me:App');
+const debug = require('debug')('jeremypridemore-me:creation:New');
 
 export default class New extends Component {
   state = {
@@ -84,7 +84,7 @@ export default class New extends Component {
           <h3>Attributes</h3>
         </div>
 
-        <div id="attributes" className="shadow-lg">
+        <div id="attributes" className="row shadow-lg">
           {Object.keys(this.state.attributes).map(type => (
             <AttributeRow
               key={type}
@@ -95,12 +95,12 @@ export default class New extends Component {
           ))}
         </div>
 
-        <div id="abilities" className="shadow-lg">
+        <div id="abilities" className="row p-3 shadow-lg">
           {Object.keys(this.state.abilities).map(ability => (
-            <div className="ability" key={ability}>
-              <div className="ability-header">{titleCase(ability)}</div>
+            <div className="ability w-100 row justify-content-start" key={ability}>
+              <div className="ability-header col-2">{titleCase(ability)}</div>
               <DotSet5
-                className="ability-value"
+                className="ability-value col-auto"
                 value={this.state.abilities[ability]}
                 onValueChanged={value => {
                   debug(`${ability} set to ${value}`);

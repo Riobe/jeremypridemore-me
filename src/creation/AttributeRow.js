@@ -1,10 +1,12 @@
 import React from 'react';
-import DotSet5 from './DotSet5';
+
 import { titleCase } from '../util';
+
+import DotSet5 from './DotSet5';
 
 export default function AttributeRow({name, attributeType, onValueChanged }) {
   return (
-    <div className="row p-3">
+    <div className="col-12 row p-3">
       <div className="col">
         <p>{titleCase(name)}</p>
 
