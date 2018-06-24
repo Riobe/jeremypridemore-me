@@ -1,4 +1,6 @@
 #navbar {
+  min-height: 56px;
+
   color: var(--color-font-light);
 }
 
@@ -21,6 +23,7 @@
 
 #not-logged-in, #logged-in {
   width: 150px;
+  margin-right: 10px;
 }
 
 #auth-form * {
