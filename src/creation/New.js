@@ -84,44 +84,48 @@ export default class New extends Component {
           </div>
         </div>
 
-        <div className="row">
+        <div className="row justify-content-end">
           <form>
-            <div className="form-group">
-              <label htmlFor="name">Character</label>
-              <input
-                id="name"
-                className="form-control"
-                type="text"
-                value={this.state.name}
-                onChange={controlFor(this, 'name')}
-              />
+            <div className="form-row">
+              <div className="col">
+                <input
+                  id="name"
+                  className="form-control"
+                  type="text"
+                  placeholder="Charcter name"
+                  value={this.state.name}
+                  onChange={controlFor(this, 'name')}
+                />
+              </div>
+              <div className="col">
+                <input
+                  id="player"
+                  className="form-control"
+                  type="text"
+                  placeholder="Player name"
+                  value={this.state.player}
+                  onChange={controlFor(this, 'player')}
+                />
+              </div>
             </div>
-            <div className="form-group">
-              <label htmlFor="player">Player</label>
-              <input
-                id="name"
-                className="form-control"
-                type="text"
-                value={this.state.player}
-                onChange={controlFor(this, 'player')}
-              />
-            </div>
-            <div className="form-group">
-              <label htmlFor="caste">Caste</label>
-              <select
-                id="caste"
-                className="form-control"
-                value={this.state.caste}
-                onChange={event => {
-                  debug(`caste changed to: ${event.target.value}`);
-                  this.setState({ caste: event.target.value });
-                }}
-              >
-                <option value="" selected disabled hidden>Choose one...</option>
-                {Object.values(CASTE).map(caste => (
-                  <option key={caste} value={caste}>{caste}</option>
-                ))}
-              </select>
+            <div className="form-row">
+              <div className="form-group col">
+                <label htmlFor="caste">Caste</label>
+                <select
+                  id="caste"
+                  className="form-control"
+                  value={this.state.caste}
+                  onChange={event => {
+                    debug(`caste changed to: ${event.target.value}`);
+                    this.setState({ caste: event.target.value });
+                  }}
+                >
+                  <option value="" selected disabled hidden>Choose one...</option>
+                  {Object.values(CASTE).map(caste => (
+                    <option key={caste} value={caste}>{caste}</option>
+                  ))}
+                </select>
+              </div>
             </div>
           </form>
         </div>
