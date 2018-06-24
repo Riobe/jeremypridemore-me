@@ -1,0 +1,42 @@
+#navbar {
+  color: var(--color-font-light);
+}
+
+#not-logged-in a, #logged-in a {
+  cursor: pointer;
+  color: var(--color-font-light);
+}
+
+#not-logged-in a:hover, #logged-in a:hover {
+  text-decoration: underline var(--color-font-light);
+}
+
+#navbar-right, #not-logged-in, #logged-in {
+  height: 100%;
+
+  display: flex;
+  justify-content: flex-end;
+  align-items: center;
+}
+
+#not-logged-in, #logged-in {
+  width: 150px;
+}
+
+#auth-form * {
+  margin-left: 5px;
+}
+
+.vertical-seperator {
+  height: 32px;
+  width: 2px;
+
+  margin: 0 7px;
+  border-radius: 15px;
+
+  background-color: white;
+}
+
+.nav-link {
+  cursor: pointer;
+}

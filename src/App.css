@@ -1,0 +1,15 @@
+#App {
+  height: 100%;
+  display: flex;
+  flex-flow: column;
+}
+
+#App > div:last-child {
+  flex-grow: 1;
+  min-width: 100%;
+}
+
+#home {
+  color: var(--color-font);
+  background-color: var(--color-body-background);
+}

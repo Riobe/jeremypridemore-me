@@ -1,0 +1,13 @@
+.exalted-dot {
+  height: 18px;
+  width: 18px;
+
+  cursor: pointer;
+
+  border: 3px black solid;
+  border-radius: 50%;
+}
+
+.exalted-dot.exalted-dot-filled {
+  background-color: black;
+}
