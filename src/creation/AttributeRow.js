@@ -8,7 +8,7 @@ export default function AttributeRow({name, precedence, attributeType, onValueCh
   return (
     <div className="AttributeRow mb-3">
       <div className="row justify-content-start">
-        <div>{titleCase(name)}</div>
+        <div className="col-12 col-md-1">{titleCase(name)}</div>
         {[{text: 'primary', className: ' btn-primary'},
           {text: 'secondary', className: ' btn-info'},
           {text: 'tertiary', className: ' btn-secondary'}].map(possiblePrecedence => (

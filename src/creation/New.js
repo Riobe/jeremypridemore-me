@@ -69,6 +69,8 @@ export default class New extends Component {
     }
   }
 
+  // Just pulled this out into a method because it'd be hairy to inline all
+  // that destructuring. It just sets the value with no other logic.
   handleAttributeChange = (type, attribute, value) => {
     this.setState({
       attributes: {
@@ -82,10 +84,16 @@ export default class New extends Component {
   }
 
   handleAttributePrecedence = (type, precedence) => {
-    const previous = this.state.attributes[precedence];
-    const current = this.getAttributePrecedence(type);
+    const previousAttribute = this.state.attributes[precedence];
 
-    if (!previous && !current) {
+    // Can't unselect after selected, can only move.
+    if (previousAttribute === type) { return; }
+
+    const currentPrecdence = this.getAttributePrecedence(type);
+
+    // This type doesn't already have a precedence, and there was no previous
+    // attribute where it wants to go. Just put it there.
+    if (!previousAttribute && !currentPrecdence) {
       return this.setState({
         attributes: {
           ...this.state.attributes,
@@ -96,9 +104,13 @@ export default class New extends Component {
 
     const changes = {
       [precedence]: type,
-      [current]: previous !== type ? previous : ''
+      // If the value you're moving to has no value, then you have to set where
+      // you are right now to empty, or you'll put the type into two different
+      // precedences.
+      [currentPrecdence]: previousAttribute !== type ? previousAttribute : ''
     };
     debug('Changing attribute precedence', changes);
+
     this.setState({
       attributes: {
         ...this.state.attributes,
@@ -107,6 +119,7 @@ export default class New extends Component {
     });
   }
 
+  // There has to be a cleaner way to do this...
   getAttributePrecedence = type => {
     const { attributes } = this.state;
     if (attributes.primary === type) { return 'primary'; }
@@ -115,6 +128,7 @@ export default class New extends Component {
     return '';
   }
 
+  // AHHH I'm TOO long REFACTOR ME!!!
   render() {
     return (
       <div className="container mt-5">
@@ -209,12 +223,6 @@ export default class New extends Component {
 
         <div className="row">
           <h3>Attributes</h3>
-        </div>
-
-        <div className="row">
-          <div className="col">primary {this.state.attributes.primary}</div>
-          <div className="col">secondary {this.state.attributes.secondary}</div>
-          <div className="col">tertiary {this.state.attributes.tertiary}</div>
         </div>
 
         <div id="attributes" className="row p-3 shadow-lg">
