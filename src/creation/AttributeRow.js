@@ -4,21 +4,28 @@ import { titleCase } from '../util';
 
 import DotSet5 from './DotSet5';
 
-export default function AttributeRow({name, attributeType, onValueChanged }) {
+export default function AttributeRow({name, precedence, attributeType, onValueChanged, onPrecedenceChange }) {
   return (
     <div className="AttributeRow mb-3">
       <div className="row justify-content-start">
         <div>{titleCase(name)}</div>
-        <button className="btn btn-light btn-sm mx-2" type="button">Primary</button>
-        <button className="btn btn-light btn-sm mx-2" type="button">Secondary</button>
-        <button className="btn btn-light btn-sm mx-2" type="button">Tertiary</button>
+        {[{text: 'primary', className: ' btn-primary'},
+          {text: 'secondary', className: ' btn-info'},
+          {text: 'tertiary', className: ' btn-secondary'}].map(possiblePrecedence => (
+          <button
+            key={possiblePrecedence.text}
+            className={'btn btn-sm mx-2' + (possiblePrecedence.text === precedence ? possiblePrecedence.className : ' btn-light')}
+            type="button"
+            onClick={() => onPrecedenceChange && onPrecedenceChange(possiblePrecedence.text)}
+          >{titleCase(possiblePrecedence.text)}</button>
+        ))}
       </div>
 
       <div className="row">
         {Object.keys(attributeType).map(attribute => (
           <div
             key={attribute}
-            className="col col-sm-12"
+            className="col-12 col-md"
           >
             <div>{titleCase(attribute)}</div>
             <DotSet5

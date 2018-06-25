@@ -70,17 +70,49 @@ export default class New extends Component {
   }
 
   handleAttributeChange = (type, attribute, value) => {
-    const attributeValues = {...this.state.attributes};
-    const typeValues = {...this.state.attributes[type]};
     this.setState({
       attributes: {
-        ...attributeValues,
+        ...this.state.attributes,
         [type]: {
-          ...typeValues,
+          ...this.state.attributes[type],
           [attribute]: value
         }
       }
     });
+  }
+
+  handleAttributePrecedence = (type, precedence) => {
+    const previous = this.state.attributes[precedence];
+    const current = this.getAttributePrecedence(type);
+
+    if (!previous && !current) {
+      return this.setState({
+        attributes: {
+          ...this.state.attributes,
+          [precedence]: type
+        }
+      });
+    }
+
+    const changes = {
+      [precedence]: type,
+      [current]: previous !== type ? previous : ''
+    };
+    debug('Changing attribute precedence', changes);
+    this.setState({
+      attributes: {
+        ...this.state.attributes,
+        ...changes
+      }
+    });
+  }
+
+  getAttributePrecedence = type => {
+    const { attributes } = this.state;
+    if (attributes.primary === type) { return 'primary'; }
+    if (attributes.secondary === type) { return 'secondary'; }
+    if (attributes.tertiary === type) { return 'tertiary'; }
+    return '';
   }
 
   render() {
@@ -166,7 +198,7 @@ export default class New extends Component {
               <label className="col-auto" htmlFor="player">Description</label>
               <textarea
                 id="description"
-                class="form-control"
+                className="form-control"
                 rows="4"
                 value={this.state.description}
                 onChange={controlFor(this, 'description')}
@@ -179,6 +211,12 @@ export default class New extends Component {
           <h3>Attributes</h3>
         </div>
 
+        <div className="row">
+          <div className="col">primary {this.state.attributes.primary}</div>
+          <div className="col">secondary {this.state.attributes.secondary}</div>
+          <div className="col">tertiary {this.state.attributes.tertiary}</div>
+        </div>
+
         <div id="attributes" className="row p-3 shadow-lg">
           <div className="col">
             {['physical', 'social', 'mental'].map(type => (
@@ -186,7 +224,9 @@ export default class New extends Component {
                 key={type}
                 name={type}
                 attributeType={this.state.attributes[type]}
+                precedence={this.getAttributePrecedence(type)}
                 onValueChanged={({attribute, newValue}) => this.handleAttributeChange(type, attribute, newValue)}
+                onPrecedenceChange={precedence => this.handleAttributePrecedence(type, precedence)}
               />
             ))}
           </div>
