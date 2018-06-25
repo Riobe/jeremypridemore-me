@@ -13,7 +13,15 @@ export default class New extends Component {
     name: '',
     player: '',
     caste: '',
+    anima: '',
+    concept: '',
+    description: '',
+
     attributes: {
+      primary: '',
+      secondary: '',
+      tertiary: '',
+
       physical: {
         strength: 1,
         dexterity: 1,
@@ -30,6 +38,7 @@ export default class New extends Component {
         wits: 1
       }
     },
+
     abilities: {
       archery: 0,
       athletics: 0,
@@ -93,6 +102,7 @@ export default class New extends Component {
                   />
                 </div>
               </div>
+
               <div className="col mx-3">
                 <div className="row align-items-end">
                   <label className="col-auto" htmlFor="player">Player:</label>
@@ -105,6 +115,7 @@ export default class New extends Component {
                   />
                 </div>
               </div>
+
               <div className="col">
                 <select
                   id="caste"
@@ -122,6 +133,45 @@ export default class New extends Component {
                 </select>
               </div>
             </div>
+
+            <div className="form-row">
+              <div className="col">
+                <div className="row align-items-end">
+                  <label className="col-auto" htmlFor="anima">Anima:</label>
+                  <input
+                    id="anima"
+                    className="form-control col"
+                    type="text"
+                    value={this.state.anima}
+                    onChange={controlFor(this, 'anima')}
+                  />
+                </div>
+              </div>
+
+              <div className="col mx-3">
+                <div className="row align-items-end">
+                  <label className="col-auto" htmlFor="concept">Concept:</label>
+                  <input
+                    id="concept"
+                    className="form-control col"
+                    type="text"
+                    value={this.state.concept}
+                    onChange={controlFor(this, 'concept')}
+                  />
+                </div>
+              </div>
+            </div>
+
+            <div className="form-row">
+              <label className="col-auto" htmlFor="player">Description</label>
+              <textarea
+                id="description"
+                class="form-control"
+                rows="4"
+                value={this.state.description}
+                onChange={controlFor(this, 'description')}
+              ></textarea>
+            </div>
           </form>
         </div>
 
@@ -131,7 +181,7 @@ export default class New extends Component {
 
         <div id="attributes" className="row p-3 shadow-lg">
           <div className="col">
-            {Object.keys(this.state.attributes).map(type => (
+            {['physical', 'social', 'mental'].map(type => (
               <AttributeRow
                 key={type}
                 name={type}
