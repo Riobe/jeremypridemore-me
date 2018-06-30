@@ -3,7 +3,8 @@ import { Route } from 'react-router-dom';
 
 import Home from './Home';
 import Profile from './Profile';
-import New from './New';
+import New from './New/';
+// import New from './New';
 
 export default function Creation() {
   return (

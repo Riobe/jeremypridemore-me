@@ -1,0 +1,14 @@
+.CanRead-toggle {
+  margin: 0 5px;
+  padding: 5px;
+
+  border: 2px solid blue;
+  border-radius: 10px;
+
+  cursor: pointer;
+}
+
+.CanRead-toggle.active {
+  font-weight: bold;
+  background-color: lightblue;
+}

@@ -66,7 +66,15 @@ export default class New extends Component {
       survival: 0,
       thrown: 0,
       war: 0
-    }
+    },
+
+    specialties: [],
+
+    merits: []
+
+    charms: []
+
+    bonusPoints: []
   }
 
   // Just pulled this out into a method because it'd be hairy to inline all

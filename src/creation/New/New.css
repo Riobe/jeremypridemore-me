@@ -1,0 +1,17 @@
+.main-card .content {
+  white-space: nowrap;
+  overflow: hidden;
+}
+
+.New-stage {
+  display: inline-block;
+  width: 100%;
+  margin-right: 50px;
+  white-space: normal;
+  vertical-align: top;
+
+  -webkit-transition: 1s;
+  -moz-transition: 1s;
+  -o-transition: 1s;
+  transition: transform 1s;
+}
