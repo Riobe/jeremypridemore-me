@@ -17,6 +17,7 @@ export default class Navbar extends Component {
   }
 
   handleRegister = e => {
+    debug('handleRegister');
     e.stopPropagation();
     const newState = { registering: !this.state.registering };
 
@@ -28,6 +29,7 @@ export default class Navbar extends Component {
   }
 
   handleLogin = e => {
+    debug('handleLogin');
     e.stopPropagation();
     const newState = { loggingIn: !this.state.loggingIn };
 
@@ -39,10 +41,12 @@ export default class Navbar extends Component {
   }
 
   handleChange = prop => {
+    debug('handleChange');
     return event => this.setState({[prop]: event.target.value});
   }
 
   submitAuth = e => {
+    debug('submitAuth');
     e.preventDefault();
 
     if (!this.props.onLogin) {
@@ -75,6 +79,7 @@ export default class Navbar extends Component {
   }
 
   clearAuth = () => {
+    debug('clearAuth');
     this.setState({
       loggingIn: false,
       registering: false,
@@ -104,7 +109,7 @@ export default class Navbar extends Component {
           <span className="navbar-toggler-icon"></span>
         </button>
 
-        <div id="navbar-content" className="collapse navbar-collapse" onClick={this.clearAuth}>
+        <div id="navbar-content" className="collapse navbar-collapse">
           <ul className="navbar-nav d-block d-md-none">
             <li className="nav-item">
               <a className="nav-link" href={GITHUB_URL} target="_blank">Source Code</a>
