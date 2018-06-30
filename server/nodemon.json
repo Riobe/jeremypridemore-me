@@ -1,0 +1,7 @@
+{
+  "env": {
+    "DEBUG": "jeremypridemore-me:*",
+    "NODE_ENV": "dev"
+  },
+  "ext": "js,json"
+}
