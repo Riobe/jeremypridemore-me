@@ -41,15 +41,16 @@ export default function Abilities({ abilities, supernal, caste, onChange, onCast
     debug(`e.isPropagationStopped() === ${e.isPropagationStopped()}`);
     e.stopPropagation();
     if (!onChange) { return; }
-    const value = !abilities[ability].favored;
+    const favored = !abilities[ability].favored;
 
-    debug(`${ability} is ${value ? 'favored' : 'unfavored'}`);
+    debug(`${ability} is ${favored ? 'favored' : 'unfavored'}`);
 
     const newState = {
       ...abilities,
       [ability]: {
-        ...abilities[ability],
-        favored: value
+        // You have to have at least one dot in every ability
+        value: (favored && !abilities[ability].value) ? 1 : abilities[ability].value,
+        favored
       }
     };
 
