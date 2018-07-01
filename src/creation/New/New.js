@@ -46,33 +46,35 @@ export default class New extends Component {
       }
     },
 
+    supernalAbility: '',
+
     abilities: {
-      archery: 0,
-      athletics: 0,
-      awareness: 0,
-      brawl: 0,
-      bureaucracy: 0,
-      craft: 0,
-      dodge: 0,
-      integrity: 0,
-      investigation: 0,
-      larceny: 0,
-      linguistics: 0,
-      lore: 0,
-      martialArts: 0,
-      medicine: 0,
-      melee: 0,
-      occult: 0,
-      performance: 0,
-      presence: 0,
-      resistance: 0,
-      ride: 0,
-      sail: 0,
-      socialize: 0,
-      stealth: 0,
-      survival: 0,
-      thrown: 0,
-      war: 0
+      archery: { value: 0, favored: false },
+      athletics: { value: 0, favored: false },
+      awareness: { value: 0, favored: false },
+      brawl: { value: 0, favored: false },
+      bureaucracy: { value: 0, favored: false },
+      craft: { value: 0, favored: false },
+      dodge: { value: 0, favored: false },
+      integrity: { value: 0, favored: false },
+      investigation: { value: 0, favored: false },
+      larceny: { value: 0, favored: false },
+      linguistics: { value: 0, favored: false },
+      lore: { value: 0, favored: false },
+      martialArts: { value: 0, favored: false },
+      medicine: { value: 0, favored: false },
+      melee: { value: 0, favored: false },
+      occult: { value: 0, favored: false },
+      performance: { value: 0, favored: false },
+      presence: { value: 0, favored: false },
+      resistance: { value: 0, favored: false },
+      ride: { value: 0, favored: false },
+      sail: { value: 0, favored: false },
+      socialize: { value: 0, favored: false },
+      stealth: { value: 0, favored: false },
+      survival: { value: 0, favored: false },
+      thrown: { value: 0, favored: false },
+      war: { value: 0, favored: false }
     },
 
     specialties: [],
@@ -102,6 +104,7 @@ export default class New extends Component {
       general,
       attributes,
       attributePriorities,
+      supernalAbility,
       abilities,
       currentStage
     } = this.state;
@@ -135,11 +138,11 @@ export default class New extends Component {
         subTitle: 'This uses 1 ability point to put into linguistics.',
         component: (
           <CanRead
-            linguistics={abilities.linguistics}
+            linguistics={abilities.linguistics.value}
             onChange={value => this.setState({
               abilities: {
                 ...abilities,
-                linguistics: value
+                linguistics: { value, favored: abilities.linguistics.favored }
               }
             })}
           />
@@ -154,7 +157,11 @@ export default class New extends Component {
         component: (
           <Abilities
             abilities={abilities}
+            caste={general.caste}
+            supernal={supernalAbility}
             onChange={value => this.setState({ abilities: value })}
+            onCasteChange={value => this.setState({ general: { ...general, caste: value }})}
+            onSupernalChange={value => this.setState({ supernalAbility: value })}
             onBonusPoints={event => debug(event)}
           />
         )
@@ -207,24 +214,26 @@ export default class New extends Component {
 
           <div className="card-body buttons">
             <div className="row justify-content-around">
-              <button
-                className="btn btn-primary"
-                type="button"
+              <a
+                className="btn btn-primary text-light"
+                rel="prev"
+                role="button"
                 style={{visibility: currentStage === 0 && 'hidden'}}
                 onClick={() => {
                   const newStage = currentStage - 1;
                   debug(`Setting stage back to ${newStage}`);
                   this.setState({currentStage: newStage })
-                }}>Previous</button>
-              <button
-                className="btn btn-primary"
-                type="button"
+                }}>Previous</a>
+              <a
+                className="btn btn-primary text-light"
+                rel="next"
+                role="button"
                 style={{visibility: currentStage === (stages.length - 1) && 'hidden'}}
                 onClick={() => {
                   const newStage = currentStage + 1;
                   debug(`Setting stage to up ${newStage}`);
                   this.setState({currentStage: newStage })
-                }}>Next</button>
+                }}>Next</a>
             </div>
           </div>
 

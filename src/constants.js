@@ -1,7 +1,7 @@
 export const CASTE = {
-  DAWN: 'Dawn',
-  ZENITH: 'Zenith',
-  TWILIGHT: 'Twilight',
-  NIGHT: 'Night',
-  ECLIPSE: 'Eclipse'
+  DAWN: 'dawn',
+  ZENITH: 'zenith',
+  TWILIGHT: 'twilight',
+  NIGHT: 'night',
+  ECLIPSE: 'eclipse'
 };

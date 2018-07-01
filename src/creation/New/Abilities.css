@@ -1,0 +1,17 @@
+.ability.row.caste {
+  background-color: #EDD763;
+}
+
+.ability.row:nth-child(even):not(.caste) {
+  background-color: #CDEFF4;
+}
+
+.Abilities-current-favored > span {
+  line-height: 38px;
+}
+
+.Abilities-square {
+  height: 20px;
+  width: 20px;
+  background-color: #EDD763;
+}

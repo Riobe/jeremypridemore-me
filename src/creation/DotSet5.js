@@ -12,7 +12,6 @@ export default function DotSet5({ value, onValueChanged, clearable, className, .
     <div className={'exalted-dot-set-5 p-0' + (className ? ' ' + className : '' )} {...props}>
       {clearable && (value > 0) &&
         <div className="DotSet5-clear d-print-none" onClick={() => {
-          console.log('clicked clear', value);
           if (!value || !onValueChanged) { return; }
 
           onValueChanged(0);

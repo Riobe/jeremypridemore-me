@@ -48,23 +48,26 @@ export default function General({ general, onChange }) {
           <div className="d-none d-md-block col-1"></div>
 
           <div className="col-12 col-md p-2">
-            <select
-              id="caste"
-              className="form-control"
-              value={general.caste}
-              onChange={e => {
-                debug(`caste changed to: ${e.target.value}`);
-                onChange && onChange({
-                  ...general,
-                  caste: e.target.value
-                })
-              }}
-            >
-              <option value="">Choose caste...</option>
-              {Object.values(CASTE).map(caste => (
-                <option key={caste} value={caste}>{caste}</option>
-              ))}
-            </select>
+            <div className="row align-items-end">
+              <label className="col-12 col-md-auto" htmlFor="caste">Caste:</label>
+              <select
+                id="caste"
+                className="form-control col text-capitalize"
+                value={general.caste}
+                onChange={e => {
+                  debug(`caste changed to: ${e.target.value}`);
+                  onChange && onChange({
+                    ...general,
+                    caste: e.target.value
+                  })
+                }}
+              >
+                <option className="text-capitalize" value="">No Caste</option>
+                {Object.values(CASTE).map(caste => (
+                  <option key={caste} value={caste}>{caste}</option>
+                ))}
+              </select>
+            </div>
           </div>
 
         </div>
