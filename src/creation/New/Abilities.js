@@ -62,7 +62,6 @@ export default function Abilities({ abilities, supernal, caste, onChange, onCast
         className="ability-header col text-capitalize"
         onClick={e => {
           e.stopPropagation();
-          debug('div changing favored ability');
           changeFavored(ability, e);
         }}
       >
@@ -71,13 +70,8 @@ export default function Abilities({ abilities, supernal, caste, onChange, onCast
           className="form-check-input"
           type="checkbox"
           checked={abilities[ability].favored}
-          onChange={e => {
-            e.stopPropagation();
-            debug('input changing favored ability');
-            changeFavored(ability, e);
-          }}
         />
-        <label className="form-check-label" htmlFor={'ability-favored-' + ability}>{ability.replace(/[A-Z]/g, ' $&')}</label>
+        <label className="form-check-label" htmlFor={'ability-favored-' + ability} onClick={e => e.stopPropagation()}>{ability.replace(/[A-Z]/g, ' $&')}</label>
       </div>
       <DotSet5
         className="ability-value col-auto"
