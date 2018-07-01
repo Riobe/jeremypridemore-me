@@ -404,23 +404,6 @@ export default class New extends Component {
           </div>
 
         </div>
-
-        <div className="row">
-          {this.state.bonusPoints.map((spend, i) => (
-            <div key={i} className="col-12">
-              <div className="row">
-                <div className="col">Type</div>
-                <div className="col">{spend.type}</div>
-                <div className="col">Target</div>
-                <div className="col">{spend.target}</div>
-                <div className="col">amount</div>
-                <div className="col">{spend.amount}</div>
-                <div className="col">Source</div>
-                <div className="col">{spend.source}</div>
-              </div>
-            </div>
-          ))}
-        </div>
       </div>
     );
   }
