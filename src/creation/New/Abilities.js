@@ -33,7 +33,13 @@ const getCasteFavoredAbilities = (caste, abilities) => {
   return casteFavored;
 };
 
-export default function Abilities({ abilities, supernal, caste, onChange, onCasteChange, onSupernalChange, onBonusPoints }) {
+const pointsLeft = abilities => {
+  // Only the first 3 points of each ability count, the rest are from bonus points.
+  // You can have a max of 28.
+  return 28 - Object.values(abilities).reduce((sum, ability) => sum + Math.min(ability.value, 3), 0);
+};
+
+export default function Abilities({ abilities, supernal, caste, onChange, onCasteChange, onSupernalChange }) {
   const abilityNames = Object.keys(abilities);
   const casteFavored = getCasteFavoredAbilities(caste, abilities);
 
@@ -54,7 +60,7 @@ export default function Abilities({ abilities, supernal, caste, onChange, onCast
       }
     };
 
-    onChange(newState);
+    onChange({ abilities: newState, abilityName: ability });
   };
 
   const abilityRow = ability => (
@@ -88,7 +94,7 @@ export default function Abilities({ abilities, supernal, caste, onChange, onCast
             }
           };
 
-          onChange(newState);
+          onChange({ abilities: newState, abilityName: ability });
         }}
         clearable={true}
       />
@@ -167,12 +173,14 @@ export default function Abilities({ abilities, supernal, caste, onChange, onCast
       </div>
 
       <div className="Abilities-current-favored col-12">
-        <span className="mr-3 d-inline-block align-middle">Favored abilities:</span>
-        <span className="mr-3 d-inline-block align-middle">{abilityNames.filter(ability => abilities[ability].favored).length}/10</span>
+        <span className="mr-3">Points left:</span>
+        <span className="mr-3">{pointsLeft(abilities)}/28</span>
+        <span className="mr-3">Favored abilities:</span>
+        <span className="mr-3">{abilityNames.filter(ability => abilities[ability].favored).length}/10</span>
         {caste && (
           <Fragment>
-            <span className="mr-3 d-inline-block align-middle">Caste abilities:</span>
-            <span className="mr-3 d-inline-block align-middle">
+            <span className="mr-3">Caste abilities:</span>
+            <span className="mr-3">
               {Math.min(5, abilityNames.filter(ability => abilities[ability].favored && isCaste(ability, caste)).length)}/5
             </span>
           </Fragment>

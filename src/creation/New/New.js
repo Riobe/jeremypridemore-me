@@ -50,15 +50,15 @@ export default class New extends Component {
 
     abilities: {
       archery: { value: 0, favored: false },
-      athletics: { value: 0, favored: false },
-      awareness: { value: 0, favored: false },
-      brawl: { value: 0, favored: false },
-      bureaucracy: { value: 0, favored: false },
-      craft: { value: 0, favored: false },
-      dodge: { value: 0, favored: false },
-      integrity: { value: 0, favored: false },
-      investigation: { value: 0, favored: false },
-      larceny: { value: 0, favored: false },
+      athletics: { value: 3, favored: false },
+      awareness: { value: 3, favored: false },
+      brawl: { value: 3, favored: false },
+      bureaucracy: { value: 3, favored: false },
+      craft: { value: 3, favored: false },
+      dodge: { value: 3, favored: false },
+      integrity: { value: 3, favored: false },
+      investigation: { value: 3, favored: false },
+      larceny: { value: 3, favored: false },
       linguistics: { value: 0, favored: false },
       lore: { value: 0, favored: false },
       martialArts: { value: 0, favored: false },
@@ -88,6 +88,7 @@ export default class New extends Component {
     currentStage: 3
   }
 
+  // Thar be dragons here! Abandon hope all ye who enter here.
   getStageClasses = (index) => {
     const classes = ['New-stage card'];
 
@@ -98,6 +99,105 @@ export default class New extends Component {
     return classes;
   }
 
+  handleAbilityChange = ({ abilities, abilityName }) => {
+    const ability = abilities[abilityName];
+
+    this.setState({ abilities });
+
+    const bonusAbilityPoints = this.state.bonusPoints.filter(bonus =>
+      bonus.type === 'ability' &&
+      bonus.target === abilityName &&
+      bonus.source === 'above3');
+    const spendsNeeded = Math.max(ability.value - 3, 0);
+    const pointCost = ability.favored ? 1 : 2;
+
+    const previousValue = this.state.abilities[abilityName].value;
+    const newValue = abilities[abilityName].value;
+    const pointsRemoved = previousValue - newValue;
+
+    debug(`spendsNeeded: ${spendsNeeded} | bonusAbilityPoints.length: ${bonusAbilityPoints.length}`);
+
+    if (pointsRemoved > 0 && previousValue > 3) {
+      // While this isn't wrong, it feels hacky. I should only remove points above 3. So if it was
+      // 5, then I either remove 1 (if only 1 point was removed), or 2 if more were removed.
+      // If it was 4, I'm only removing 1 point.
+      this.removeBonusAbility(abilityName, previousValue === 5 ? Math.min(pointsRemoved, 2) : 1, 'above3');
+    } else if (spendsNeeded > bonusAbilityPoints.length) {
+      // Don't have as many bonus points as we need.
+      this.addBonusAbility(abilityName, spendsNeeded - bonusAbilityPoints.length, pointCost, 'above3');
+    } else if (bonusAbilityPoints.length && (bonusAbilityPoints[0].amount !== pointCost)) {
+     // The cost is wrong (favored changed)
+      this.changeBonusPointAbilityCost(abilityName, pointCost);
+    }
+  }
+
+  componentDidUpdate() {
+    const abilityTotal = Object.values(this.state.abilities).reduce((sum, ability) => sum + Math.min(3, ability.value), 0);
+    const equalizePoints = this.state.bonusPoints.filter(spend => spend.type === 'ability' && spend.source === 'equalize').length;
+
+    if (abilityTotal > 28 && (abilityTotal - equalizePoints) > 28) {
+      debug('Need to equalize');
+      this.equalizeAbilitiesAdd(abilityTotal, equalizePoints);
+    } else if (equalizePoints && (abilityTotal - equalizePoints) < 28) {
+      debug('Too many equalize bonus points');
+      this.equalizeAbilitiesRemove(abilityTotal, equalizePoints);
+    }
+  }
+
+  equalizeAbilitiesAdd = (abilityTotal, handled) => {
+    const { abilities } = this.state;
+    const diff = abilityTotal - handled - 28;
+    let remaining = diff;
+
+    const newSpends = Object.keys(abilities).reduce((spends, ability) => {
+      if (!remaining || !abilities[ability].value) { return spends; }
+
+      const count = Math.min(remaining, Math.min(abilities[ability].value, 3));
+      remaining -= count;
+      return spends.concat(Array(count).fill({
+        type: 'ability',
+        target: ability,
+        amount: abilities[ability].favored ? 1 : 2,
+        source: 'equalize'
+      }));
+    }, []);
+
+    debug('Bonus points to equalize', newSpends);
+    this.setState({
+      bonusPoints: this.state.bonusPoints.concat(newSpends)
+    });
+  }
+
+  equalizeAbilitiesRemove = (abilityTotal, handled) => {
+    const { bonusPoints } = this.state;
+
+    const excess = 28 - (abilityTotal - handled);
+    const remaining = bonusPoints.filter(spend => spend.type === 'ability' && spend.source === 'equalize').slice(excess);
+    const newSpends = bonusPoints.filter(spend => spend.type !== 'ability' || spend.source !== 'equalize').concat(remaining);
+
+    this.setState({ bonusPoints: newSpends });
+  }
+
+  addBonusAbility = (name, count, amount, source) => {
+    this.setState({ bonusPoints: this.state.bonusPoints.concat(Array(count).fill({ type: 'ability', target: name, amount, source })) });
+  }
+
+  removeBonusAbility = (name, count, source) => {
+    const { bonusPoints } = this.state;
+
+    const remaining = bonusPoints.filter(spend => spend.type === 'ability' && spend.target === name && spend.source === source).slice(count);
+    const newSpends = bonusPoints.filter(spend => spend.type !== 'ability' || spend.target !== name || spend.source !== source).concat(remaining);
+
+    this.setState({ bonusPoints: newSpends });
+  }
+
+  changeBonusPointAbilityCost = (name, amount) => {
+    this.changeBonusPointCost(spend => spend.type === 'ability' && spend.target === name, amount);
+  }
+
+  changeBonusPointCost = (selector, amount) => {
+    this.setState({ bonusPoints: this.state.bonusPoints.map(spend => selector(spend) ? { ...spend, amount } : spend) });
+  }
 
   render() {
     const {
@@ -159,10 +259,9 @@ export default class New extends Component {
             abilities={abilities}
             caste={general.caste}
             supernal={supernalAbility}
-            onChange={value => this.setState({ abilities: value })}
+            onChange={this.handleAbilityChange}
             onCasteChange={value => this.setState({ general: { ...general, caste: value }})}
             onSupernalChange={value => this.setState({ supernalAbility: value })}
-            onBonusPoints={event => debug(event)}
           />
         )
       },
@@ -224,6 +323,11 @@ export default class New extends Component {
                   debug(`Setting stage back to ${newStage}`);
                   this.setState({currentStage: newStage })
                 }}>Previous</a>
+              <div>
+                <span>Bonus Points:</span>
+                <span>{this.state.bonusPoints.reduce((sum, spend) => sum + spend.amount, 0)}</span>
+                <span>/15</span>
+              </div>
               <a
                 className="btn btn-primary text-light"
                 rel="next"
@@ -261,6 +365,23 @@ export default class New extends Component {
             ))}
           </div>
 
+        </div>
+
+        <div className="row">
+          {this.state.bonusPoints.map((spend, i) => (
+            <div key={i} className="col-12">
+              <div className="row">
+                <div className="col">Type</div>
+                <div className="col">{spend.type}</div>
+                <div className="col">Target</div>
+                <div className="col">{spend.target}</div>
+                <div className="col">amount</div>
+                <div className="col">{spend.amount}</div>
+                <div className="col">Source</div>
+                <div className="col">{spend.source}</div>
+              </div>
+            </div>
+          ))}
         </div>
       </div>
     );
