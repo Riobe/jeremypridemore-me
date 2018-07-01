@@ -24,17 +24,21 @@ export default class Attributes extends Component {
         [newPrecedence]: type
       };
       debug('Changing attribute precedence', simpleChanges);
-      onPrecedenceChange(simpleChanges);
+      return onPrecedenceChange(simpleChanges);
     }
 
     const changes = {
       ...precedence,
       [newPrecedence]: type,
+    };
+
+    if (currentPrecdence) {
       // If the value you're moving to has no value, then you have to set where
       // you are right now to empty, or you'll put the type into two different
       // precedences.
-      [currentPrecdence]: previousAttribute !== type ? previousAttribute : ''
-    };
+      changes[currentPrecdence] = previousAttribute !== type ? previousAttribute : ''
+    }
+
     debug('Changing attribute precedence', changes);
 
     onPrecedenceChange(changes);
@@ -66,12 +70,16 @@ export default class Attributes extends Component {
                 if (!onChange) { return; }
 
                 onChange({
-                  ...attributes,
-                  [type]: {
-                    ...attributes[type],
-                    [attribute]: newValue
-                  }
-                })
+                  attributes: {
+                    ...attributes,
+                    [type]: {
+                      ...attributes[type],
+                      [attribute]: newValue
+                    }
+                  },
+                  type,
+                  name: attribute
+                });
               }}
               onPrecedenceChange={precedence => this.handleAttributePrecedence(type, precedence)}
             />

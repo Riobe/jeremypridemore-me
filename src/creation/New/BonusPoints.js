@@ -3,7 +3,7 @@ import React from 'react';
 export default function BonusPoints() {
   const costs = [
     {
-      target: 'Primary or secondary Attribute',
+      target: 'Primary or Secondary Attribute',
       value: '4 per dot'
     },
     {
@@ -39,7 +39,7 @@ export default function BonusPoints() {
       value: '4'
     },
     {
-      target: 'Spell (Occult non-Caste/Favored)',
+      target: 'Spell (Occult Non-Caste/Favored)',
       value: '5'
     },
     {

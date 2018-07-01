@@ -39,7 +39,7 @@ const pointsLeft = abilities => {
   return 28 - Object.values(abilities).reduce((sum, ability) => sum + Math.min(ability.value, 3), 0);
 };
 
-export default function Abilities({ abilities, supernal, caste, onChange, onCasteChange, onSupernalChange }) {
+export default function Abilities({ abilities, supernal, caste, bonusPoints, onChange, onCasteChange, onSupernalChange }) {
   const abilityNames = Object.keys(abilities);
   const casteFavored = getCasteFavoredAbilities(caste, abilities);
 
@@ -100,6 +100,8 @@ export default function Abilities({ abilities, supernal, caste, onChange, onCast
       />
     </div>
   );
+
+  const abilityPointsLeft = Math.max(pointsLeft(abilities), 0);
 
   return (
     <div id="Abilities" className="row my-5 mb-0 shadow-lg">
@@ -174,7 +176,9 @@ export default function Abilities({ abilities, supernal, caste, onChange, onCast
 
       <div className="Abilities-current-favored col-12">
         <span className="mr-3">Points left:</span>
-        <span className="mr-3">{pointsLeft(abilities)}/28</span>
+        <span className="mr-3">{abilityPointsLeft}/28</span>
+        <span className={'mr-3' + (!abilityPointsLeft ? ' Abilities-outta-points' : '')}>Bonus Points</span>
+        <span className={'mr-3' + (!abilityPointsLeft ? ' Abilities-outta-points' : '')}>{bonusPoints}/15</span>
         <span className="mr-3">Favored abilities:</span>
         <span className="mr-3">{abilityNames.filter(ability => abilities[ability].favored).length}/10</span>
         {caste && (
