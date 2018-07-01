@@ -60,7 +60,7 @@ export default function General({ general, onChange }) {
                 })
               }}
             >
-              <option value="" disabled hidden>Caste</option>
+              <option value="">Choose caste...</option>
               {Object.values(CASTE).map(caste => (
                 <option key={caste} value={caste}>{caste}</option>
               ))}

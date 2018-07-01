@@ -6,6 +6,8 @@ import './New.css';
 import General from './General';
 import Attributes from './Attributes';
 import CanRead from './CanRead';
+import Abilities from './Abilities';
+import BonusPoints from './BonusPoints';
 
 const debug = require('debug')('jeremypridemore-me:creation:New');
 
@@ -81,7 +83,7 @@ export default class New extends Component {
 
     bonusPoints: [],
     
-    currentStage: 2
+    currentStage: 3
   }
 
   getStageClasses = (index) => {
@@ -96,7 +98,13 @@ export default class New extends Component {
 
 
   render() {
-    const { general, attributes, attributePriorities, currentStage } = this.state;
+    const {
+      general,
+      attributes,
+      attributePriorities,
+      abilities,
+      currentStage
+    } = this.state;
 
     const stages = [
       {
@@ -110,7 +118,7 @@ export default class New extends Component {
         id: 'attributes',
         title: 'Attributes',
         subTitle: 'What is this character innately like?',
-        description: 'These represent things like how strong you are, how smart you are, how hot you are, etc. Make sure you choose a primary/secondary/tertiary value for every row, that tells you how many dots (points) you can put into each category.',
+        description: 'These represent things like how strong you are, how smart you are, how attractive you are, etc. Make sure you choose a primary/secondary/tertiary value for every row, that tells you how many dots (points) you can put into each category. Hop over to the other tabs to use these.',
         component: (
           <Attributes
             attributes={attributes}
@@ -124,13 +132,13 @@ export default class New extends Component {
       {
         id: 'can-read',
         title: 'Can this character read?',
-        subTitle: 'This will take 1 of your ability points.',
+        subTitle: 'This uses 1 ability point to put into linguistics.',
         component: (
           <CanRead
-            linguistics={this.state.abilities.linguistics}
+            linguistics={abilities.linguistics}
             onChange={value => this.setState({
               abilities: {
-                ...this.abilities,
+                ...abilities,
                 linguistics: value
               }
             })}
@@ -141,7 +149,15 @@ export default class New extends Component {
       {
         id: 'abilities',
         title: 'Abilities',
-        subTitle: 'What can this character do?'
+        subTitle: 'What can this character do?',
+        description: 'You get 28 points to spend in any abilities you want. You can\'t raise an ability beyond 3 without spending bonus points though. Sorcery takes at least 3 in Occult, and martial arts requires 1 in brawl, and then a merit in a later step. You can also choose 10 favorited abilities that you can improve cheaper. 5 must be from your caste abilities, highlighted below until you choose them, and 5 can be from anything.',
+        component: (
+          <Abilities
+            abilities={abilities}
+            onChange={value => this.setState({ abilities: value })}
+            onBonusPoints={event => debug(event)}
+          />
+        )
       },
 
       {
@@ -177,7 +193,9 @@ export default class New extends Component {
       {
         id: 'bonus',
         title: 'Bonus Points',
-        subTitle: 'What needs filled out?'
+        subTitle: 'What needs filled out?',
+        description: 'Is your character missing something cool? Not rounded out enough? Bonus points allow you to fill in the gaps to get your character to where you wanted them. You get 15 of them. Here\'s what you can spend them on, and how much each thing costs.',
+        component: <BonusPoints />
       }
     ];
 
