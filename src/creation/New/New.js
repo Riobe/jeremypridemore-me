@@ -125,18 +125,43 @@ export default class New extends Component {
     } else if (spendsNeeded > bonusAbilityPoints.length) {
       // Don't have as many bonus points as we need.
       this.addBonusAbility(abilityName, spendsNeeded - bonusAbilityPoints.length, pointCost, 'above3');
-    } else if (bonusAbilityPoints.length && (bonusAbilityPoints[0].amount !== pointCost)) {
-     // The cost is wrong (favored changed)
-      this.changeBonusPointAbilityCost(abilityName, pointCost);
+    }
+
+    if (abilities[abilityName].favored !== this.state.abilities[abilityName].favored) {
+      // You changed the favored...
+      // I'm not sure how to elegantly handle this other than nuke the equalize bonus points
+      // and re-equalize (which looks for favored) to keep it optimized and not screw you.
+      const { bonusPoints } = this.state;
+
+      let modifiedAbilityPoints = bonusPoints.filter(spend => spend.source !== 'equalize');
+
+      if (bonusAbilityPoints.length && (bonusAbilityPoints[0].amount !== pointCost)) {
+        modifiedAbilityPoints = modifiedAbilityPoints
+          .filter(spend => !(spend.type === 'ability' && spend.target === abilityName && spend.source === 'above3'))
+          .concat(Array(bonusAbilityPoints.length).fill({
+            ...bonusAbilityPoints[0],
+            amount: pointCost
+          }));
+      }
+
+      this.setState({ bonusPoints: modifiedAbilityPoints }, () => {
+        this.checkForEqualize();
+      });
     }
   }
 
-  componentDidUpdate() {
+  componentDidUpdate(prevProps, prevState) {
+    if (prevState.abilities !== this.state.abilities) {
+      this.checkForEqualize();
+    }
+  }
+
+  checkForEqualize = () => {
     const abilityTotal = Object.values(this.state.abilities).reduce((sum, ability) => sum + Math.min(3, ability.value), 0);
     const equalizePoints = this.state.bonusPoints.filter(spend => spend.type === 'ability' && spend.source === 'equalize').length;
 
     if (abilityTotal > 28 && (abilityTotal - equalizePoints) > 28) {
-      debug('Need to equalize');
+      debug('Need to equalize abilities');
       this.equalizeAbilitiesAdd(abilityTotal, equalizePoints);
     } else if (equalizePoints && (abilityTotal - equalizePoints) < 28) {
       debug('Too many equalize bonus points');
@@ -149,7 +174,7 @@ export default class New extends Component {
     const diff = abilityTotal - handled - 28;
     let remaining = diff;
 
-    const newSpends = Object.keys(abilities).reduce((spends, ability) => {
+    const favoredSpends = Object.keys(abilities).filter(ability => abilities[ability].favored).reduce((spends, ability) => {
       if (!remaining || !abilities[ability].value) { return spends; }
 
       const count = Math.min(remaining, Math.min(abilities[ability].value, 3));
@@ -162,7 +187,20 @@ export default class New extends Component {
       }));
     }, []);
 
-    debug('Bonus points to equalize', newSpends);
+
+    const newSpends = Object.keys(abilities).filter(ability => !abilities[ability].favored).reduce((spends, ability) => {
+      if (!remaining || !abilities[ability].value) { return spends; }
+
+      const count = Math.min(remaining, Math.min(abilities[ability].value, 3));
+      remaining -= count;
+      return spends.concat(Array(count).fill({
+        type: 'ability',
+        target: ability,
+        amount: abilities[ability].favored ? 1 : 2,
+        source: 'equalize'
+      }));
+    }, favoredSpends);
+
     this.setState({
       bonusPoints: this.state.bonusPoints.concat(newSpends)
     });
@@ -191,8 +229,8 @@ export default class New extends Component {
     this.setState({ bonusPoints: newSpends });
   }
 
-  changeBonusPointAbilityCost = (name, amount) => {
-    this.changeBonusPointCost(spend => spend.type === 'ability' && spend.target === name, amount);
+  changeBonusPointAbilityCost = (name, amount, source) => {
+    this.changeBonusPointCost(spend => spend.type === 'ability' && spend.target === name && spend.source === source, amount);
   }
 
   changeBonusPointCost = (selector, amount) => {
